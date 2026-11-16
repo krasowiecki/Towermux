@@ -1,323 +1,434 @@
 
-
 <!DOCTYPE html>
-
 <html lang="pl">
-
 <head>
-
-  <meta charset="UTF-8">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-
-  <meta name="theme-color" content="#080d14">
-
-  <meta name="apple-mobile-web-app-capable" content="yes">
-
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-  <meta name="apple-mobile-web-app-title" content="Towermux">
-
-  <title>Towermux 1.0</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#080d14">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Towermux">
 <link rel="manifest" href="./manifest.json">
-  <style>
-
-    * { box-sizing: border-box; }
-
-    body {
-
-      margin: 0;
-
-      min-height: 100vh;
-
-      padding: 30px 20px;
-
-      background: #080d14;
-
-      color: #e8f3ff;
-
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-
-    }
-
-    .app { max-width: 520px; margin: auto; }
-
-    .top {
-
-      display: flex;
-
-      justify-content: space-between;
-
-      align-items: center;
-
-      margin-bottom: 45px;
-
-    }
-
-    .logo {
-
-      color: #37c9ff;
-
-      font-size: 25px;
-
-      font-weight: 800;
-
-      letter-spacing: 2px;
-
-    }
-
-    .version { color: #718397; font-size: 11px; }
-
-    .status {
-
-      color: #7c91a7;
-
-      font-size: 11px;
-
-      letter-spacing: 3px;
-
-      margin-bottom: 12px;
-
-    }
-
-    h1 { font-size: 29px; margin: 0 0 10px; }
-
-    .subtitle { color: #8295a9; font-size: 14px; line-height: 1.6; }
-
-    .section {
-
-      margin-top: 38px;
-
-      margin-bottom: 14px;
-
-      color: #37c9ff;
-
-      font-size: 12px;
-
-      letter-spacing: 2px;
-
-    }
-
-    .option {
-
-      display: flex;
-
-      align-items: center;
-
-      gap: 15px;
-
-      width: 100%;
-
-      padding: 19px;
-
-      margin: 10px 0;
-
-      color: #e8f3ff;
-
-      background: #111b28;
-
-      border: 1px solid #26384b;
-
-      border-radius: 13px;
-
-      text-align: left;
-
-      font-size: 15px;
-
-    }
-
-    .option.selected {
-
-      border-color: #37c9ff;
-
-      background: #10283a;
-
-    }
-
-    .symbol { font-size: 23px; width: 32px; text-align: center; }
-
-    .description { display: block; color: #8295a9; font-size: 11px; margin-top: 5px; }
-
-    .connect {
-
-      width: 100%;
-
-      padding: 18px;
-
-      margin-top: 25px;
-
-      border: 0;
-
-      border-radius: 12px;
-
-      background: #20b9ed;
-
-      color: #04111b;
-
-      font-size: 14px;
-
-      font-weight: 800;
-
-      letter-spacing: 1px;
-
-    }
-
-    .message {
-
-      min-height: 35px;
-
-      margin-top: 17px;
-
-      color: #8295a9;
-
-      font-size: 12px;
-
-      text-align: center;
-
-    }
-
-    .footer {
-
-      margin-top: 65px;
-
-      color: #526477;
-
-      font-size: 10px;
-
-      text-align: center;
-
-      letter-spacing: 1px;
-
-    }
-
-  </style>
-
+<title>TOWERMUX 1.1</title>
+<style>
+:root {
+  color-scheme: dark;
+  --bg:#080d14;
+  --panel:#101c2a;
+  --line:#263b50;
+  --text:#edf6ff;
+  --muted:#91a7bc;
+  --cyan:#20d9f5;
+  --green:#42dfa0;
+  --yellow:#ffc66d;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  min-height:100vh;
+  padding:env(safe-area-inset-top) 16px env(safe-area-inset-bottom);
+  color:var(--text);
+  background:radial-gradient(ellipse at 50% -10%,#183650,transparent 55%),var(--bg);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+.app { max-width:680px; margin:auto; padding:20px 0 35px; }
+header {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:8px 3px 22px; border-bottom:1px solid var(--line); margin-bottom:27px;
+}
+.logo { color:var(--cyan); font-size:25px; font-weight:900; letter-spacing:4px; }
+.version { color:var(--muted); font-size:11px; letter-spacing:2px; }
+.eyebrow { color:var(--cyan); font-size:10px; letter-spacing:3px; font-weight:800; margin-bottom:10px; }
+h1 { font-size:29px; margin:0 0 10px; line-height:1.2; }
+.description { color:var(--muted); font-size:14px; line-height:1.6; margin:0 0 24px; }
+.page { display:none; }
+.page.active { display:block; }
+.card {
+  background:linear-gradient(145deg,#142438,var(--panel));
+  border:1px solid var(--line); border-radius:15px;
+  padding:17px; margin-bottom:12px;
+}
+.choice {
+  display:flex; align-items:center; gap:13px; width:100%;
+  color:var(--text); text-align:left; cursor:pointer;
+}
+.choice.selected { border-color:var(--cyan); box-shadow:0 0 0 1px var(--cyan); }
+.symbol {
+  width:43px; height:43px; border-radius:12px; flex-shrink:0;
+  display:grid; place-items:center; background:#20384d;
+  color:var(--cyan); font-size:22px;
+}
+.choice-text { flex:1; }
+.choice-text strong { display:block; font-size:15px; margin-bottom:5px; }
+.choice-text small { color:var(--muted); font-size:12px; line-height:1.4; }
+.radio { width:19px; height:19px; border:2px solid #60758a; border-radius:50%; }
+.selected .radio { border:6px solid var(--cyan); }
+button { font:inherit; }
+.main-button {
+  width:100%; border:0; border-radius:12px; padding:16px;
+  margin-top:12px; background:var(--cyan); color:#06131d;
+  font-size:13px; font-weight:900; letter-spacing:2px; cursor:pointer;
+}
+.secondary {
+  background:#17283a; color:var(--text); border:1px solid var(--line);
+}
+.row {
+  display:flex; justify-content:space-between; gap:12px;
+  padding:12px 0; border-top:1px solid #263b5099; font-size:13px;
+}
+.row span:first-child { color:var(--muted); }
+.row span:last-child { text-align:right; overflow-wrap:anywhere; }
+.card-title { font-size:14px; font-weight:700; margin-bottom:12px; }
+.status { color:var(--muted); font-size:11px; }
+.dot { display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--yellow); margin-right:6px; }
+.dot.green { background:var(--green); }
+.info { color:var(--muted); font-size:12px; line-height:1.6; }
+.result { background:#0b1420; border:1px solid var(--line); border-radius:10px; padding:12px; margin-top:8px; font-size:13px; }
+nav {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:5px;
+  margin-top:27px; padding:7px; border:1px solid var(--line);
+  border-radius:14px; background:#0c1520;
+}
+nav button {
+  border:0; border-radius:9px; background:transparent;
+  color:var(--muted); padding:11px 2px; font-size:10px;
+  font-weight:700; cursor:pointer;
+}
+nav button.active { color:var(--cyan); background:#193044; }
+footer { text-align:center; color:#60758a; font-size:10px; letter-spacing:1px; margin-top:22px; }
+</style>
 </head>
-
 <body>
+<main class="app">
+<header>
+  <div class="logo">TOWERMUX</div>
+  <div class="version">WERSJA 1.1</div>
+</header>
 
-  <main class="app">
+<section id="home" class="page active">
+  <div class="eyebrow">DIAGNOSTYKA MERCEDES-BENZ</div>
+  <h1>Panel diagnostyczny</h1>
+  <p class="description">Wybierz sposób połączenia telefonu z systemem MBUX.</p>
 
-    <header class="top">
-
-      <div class="logo">TOWERMUX</div>
-
-      <div class="version">VERSION 1.0</div>
-
-    </header>
-
-    <div class="status">MERCEDES DIAGNOSTICS</div>
-
-    <h1>Connection setup</h1>
-
-    <div class="subtitle">
-
-      Wybierz sposób połączenia z systemem MBUX.
-
+  <div class="card choice" data-mode="hotspot">
+    <div class="symbol">◉</div>
+    <div class="choice-text">
+      <strong>Hotspot iPhone'a</strong>
+      <small>Telefon udostępnia samochodowi własną sieć Wi-Fi.</small>
     </div>
+    <div class="radio"></div>
+  </div>
 
-    <div class="section">CONNECTION TYPE</div>
-
-    <button class="option selected" data-mode="hotspot">
-
-      <span class="symbol">◉</span>
-
-      <span>
-
-        iPhone Hotspot
-
-        <span class="description">Telefon udostępnia połączenie Wi-Fi</span>
-
-      </span>
-
-    </button>
-
-    <button class="option" data-mode="mbux">
-
-      <span class="symbol">⌁</span>
-
-      <span>
-
-        MBUX Wi-Fi
-
-        <span class="description">Telefon połączony z siecią samochodu</span>
-
-      </span>
-
-    </button>
-
-    <button class="option" data-mode="usb">
-
-      <span class="symbol">⌁</span>
-
-      <span>
-
-        USB Cable
-
-        <span class="description">Połączenie przewodowe</span>
-
-      </span>
-
-    </button>
-
-    <button class="connect" id="connect">CONTINUE</button>
-
-    <div class="message" id="message">
-
-      Wybierz metodę połączenia.
-
+  <div class="card choice" data-mode="wifi">
+    <div class="symbol">⌁</div>
+    <div class="choice-text">
+      <strong>Sieć Wi-Fi MBUX</strong>
+      <small>Telefon łączy się z siecią samochodu.</small>
     </div>
+    <div class="radio"></div>
+  </div>
 
-    <footer class="footer">
+  <div class="card choice" data-mode="usb">
+    <div class="symbol">⎓</div>
+    <div class="choice-text">
+      <strong>Przewód USB</strong>
+      <small>Połączenie telefonu z samochodem za pomocą przewodu.</small>
+    </div>
+    <div class="radio"></div>
+  </div>
 
-      TOWERMUX · W214 · 2024
+  <button class="main-button" id="continue">ROZPOCZNIJ</button>
+  <p class="info" id="message">Wybierz jeden z trzech sposobów połączenia.</p>
+</section>
 
-    </footer>
+<section id="dashboard" class="page">
+  <div class="eyebrow">TOWERMUX / CENTRUM</div>
+  <h1>Stan systemu</h1>
+  <p class="description">Podstawowe informacje o środowisku pracy aplikacji.</p>
 
-  </main>
+  <div class="card">
+    <div class="card-title">Aplikacja Towermux</div>
+    <div class="row"><span>Wersja</span><span>1.1</span></div>
+    <div class="row"><span>Tryb uruchomienia</span><span id="app-mode">Sprawdzanie...</span></div>
+    <div class="row"><span>Obsługa JavaScript</span><span>Aktywna</span></div>
+    <div class="row"><span>Pamięć lokalna</span><span id="storage-state">Sprawdzanie...</span></div>
+  </div>
 
-  <script>
+  <div class="card">
+    <div class="card-title">Wybrane połączenie</div>
+    <div class="row"><span>Metoda</span><span id="selected-mode">Nie wybrano</span></div>
+    <div class="row"><span>Sieć telefonu</span><span id="network-state">Sprawdzanie...</span></div>
+    <div class="row"><span>Połączenie z pojazdem</span><span>Niepotwierdzone</span></div>
+  </div>
 
-    const options = document.querySelectorAll(".option");
+  <div class="card">
+    <div class="card-title">Informacja o połączeniu</div>
+    <p class="info">
+      Dostępność sieci w telefonie nie potwierdza połączenia z samochodem.
+      iOS nie udostępnia aplikacji bezpośredniego dostępu do wszystkich
+      informacji o Wi-Fi, USB, CarPlay ani magistrali pojazdu.
+    </p>
+  </div>
 
-    let selectedMode = "hotspot";
+  <button class="main-button secondary" id="change-mode">ZMIEN SPOSÓB POŁĄCZENIA</button>
+</section>
 
-    options.forEach(option => {
+<section id="network" class="page">
+  <div class="eyebrow">TOWERMUX / ŁĄCZNOŚĆ</div>
+  <h1>Informacje sieciowe</h1>
+  <p class="description">Odczyt informacji udostępnianych przez przeglądarkę iOS.</p>
 
-      option.addEventListener("click", () => {
+  <div class="card">
+    <div class="row"><span>Dostęp do sieci</span><span id="internet-state">Sprawdzanie...</span></div>
+    <div class="row"><span>Typ połączenia</span><span id="connection-type">Niedostępny w iOS</span></div>
+    <div class="row"><span>Przeglądarka</span><span id="browser-name">Sprawdzanie...</span></div>
+    <div class="row"><span>System</span><span id="system-name">Sprawdzanie...</span></div>
+    <div class="row"><span>Tryb aplikacji</span><span id="network-app-mode">Sprawdzanie...</span></div>
+  </div>
 
-        options.forEach(item => item.classList.remove("selected"));
+  <div class="card">
+    <div class="card-title">Ograniczenia iOS</div>
+    <p class="info">
+      Safari nie udostępnia zwykłym stronom internetowym nazwy
+      połączonej sieci Wi-Fi, jej hasła ani pełnych parametrów interfejsu.
+      Nie oznacza to awarii telefonu ani aplikacji.
+    </p>
+  </div>
 
-        option.classList.add("selected");
+  <button class="main-button secondary" id="refresh-network">ODŚWIEŻ INFORMACJE</button>
+</section>
 
-        selectedMode = option.dataset.mode;
+<section id="diagnostics" class="page">
+  <div class="eyebrow">TOWERMUX / TESTY</div>
+  <h1>Diagnostyka</h1>
+  <p class="description">Sprawdzenie podstawowych funkcji aplikacji i telefonu.</p>
 
-        document.getElementById("message").textContent =
+  <div class="card">
+    <div class="card-title">Test środowiska</div>
+    <div class="status"><i class="dot" id="test-dot"></i><span id="test-status">Gotowy</span></div>
+    <div id="test-results">
+      <div class="result">Oczekiwanie na uruchomienie testów.</div>
+    </div>
+    <button class="main-button" id="run-tests">URUCHOM TESTY</button>
+  </div>
 
-          "Wybrano: " + option.innerText.trim().split("\n")[0];
+  <div class="card">
+    <div class="card-title">Moduły samochodu</div>
+    <div class="status"><i class="dot"></i>Brak połączenia</div>
+    <p class="info">
+      Odczyt sterowników i parametrów samochodu nie jest jeszcze dostępny.
+      Do takiej diagnostyki będzie potrzebny odpowiedni interfejs
+      i obsługiwany sposób komunikacji z pojazdem.
+    </p>
+  </div>
+</section>
 
-      });
+<section id="settings" class="page">
+  <div class="eyebrow">TOWERMUX / KONFIGURACJA</div>
+  <h1>Ustawienia</h1>
+  <p class="description">Podstawowa konfiguracja aplikacji.</p>
 
-    });
+  <div class="card">
+    <div class="row"><span>Nazwa aplikacji</span><span>TOWERMUX</span></div>
+    <div class="row"><span>Wersja</span><span>1.1</span></div>
+    <div class="row"><span>Język</span><span>Polski</span></div>
+    <div class="row"><span>Zapamiętany wybór</span><span id="saved-mode">Brak</span></div>
+  </div>
 
-    document.getElementById("connect").addEventListener("click", () => {
+  <div class="card">
+    <div class="card-title">Dane aplikacji</div>
+    <p class="info">
+      Ustawienia są przechowywane lokalnie na tym telefonie.
+      Nie są automatycznie synchronizowane z innymi urządzeniami.
+    </p>
+    <button class="main-button secondary" id="clear-choice">WYCZYŚĆ ZAPISANY WYBÓR</button>
+  </div>
+</section>
 
-      document.getElementById("message").textContent =
+<nav>
+  <button class="active" data-page="home">GŁÓWNA</button>
+  <button data-page="dashboard">PANEL</button>
+  <button data-page="network">SIEĆ</button>
+  <button data-page="diagnostics">TESTY</button>
+</nav>
 
-        "Wybrany tryb: " + selectedMode + ". Moduł połączenia zostanie skonfigurowany w kolejnym etapie.";
-
-    });
-
-  </script>
+<footer>TOWERMUX · MERCEDES-BENZ MBUX</footer>
+</main>
 <script>
+const modeNames = {
+  hotspot: "Hotspot iPhone'a",
+  wifi: "Sieć Wi-Fi MBUX",
+  usb: "Przewód USB"
+};
+
+let selectedMode = localStorage.getItem("towermux_mode") || "";
+
+function showPage(pageId) {
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.toggle("active", page.id === pageId);
+  });
+
+  document.querySelectorAll("nav button").forEach(button => {
+    button.classList.toggle("active", button.dataset.page === pageId);
+  });
+
+  if (pageId === "dashboard") updateDashboard();
+  if (pageId === "network") updateNetwork();
+  if (pageId === "settings") updateSettings();
+}
+
+document.querySelectorAll(".choice").forEach(card => {
+  card.addEventListener("click", () => {
+    selectedMode = card.dataset.mode;
+
+    document.querySelectorAll(".choice").forEach(item => {
+      item.classList.toggle("selected", item === card);
+    });
+
+    document.getElementById("message").textContent =
+      "Wybrano: " + modeNames[selectedMode] + ".";
+  });
+});
+
+document.getElementById("continue").addEventListener("click", () => {
+  if (!selectedMode) {
+    document.getElementById("message").textContent =
+      "Najpierw wybierz sposób połączenia.";
+    return;
+  }
+
+  localStorage.setItem("towermux_mode", selectedMode);
+  showPage("dashboard");
+});
+
+document.getElementById("change-mode").addEventListener("click", () => {
+  showPage("home");
+});
+
+document.querySelectorAll("nav button").forEach(button => {
+  button.addEventListener("click", () => {
+    showPage(button.dataset.page);
+  });
+});
+
+function isStandalone() {
+  return window.matchMedia("(display-mode: standalone)").matches ||
+    navigator.standalone === true;
+}
+
+function updateDashboard() {
+  document.getElementById("app-mode").textContent =
+    isStandalone() ? "Zainstalowana aplikacja" : "Safari / przeglądarka";
+
+  document.getElementById("storage-state").textContent =
+    typeof Storage !== "undefined" ? "Dostępna" : "Niedostępna";
+
+  document.getElementById("selected-mode").textContent =
+    modeNames[selectedMode] || "Nie wybrano";
+
+  document.getElementById("network-state").textContent =
+    navigator.onLine ? "Dostępna" : "Brak połączenia";
+}
+
+function updateNetwork() {
+  document.getElementById("internet-state").textContent =
+    navigator.onLine ? "Dostęp do sieci zgłoszony" : "Brak dostępu do sieci";
+
+  document.getElementById("connection-type").textContent =
+    navigator.connection && navigator.connection.effectiveType
+      ? navigator.connection.effectiveType
+      : "Niedostępny w iOS";
+
+  const ua = navigator.userAgent;
+  const isSafari = /Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS/.test(ua);
+
+  document.getElementById("browser-name").textContent =
+    isSafari ? "Safari" :
+    /CriOS/.test(ua) ? "Chrome" :
+    /FxiOS/.test(ua) ? "Firefox" : "Inna przeglądarka";
+
+  document.getElementById("system-name").textContent =
+    /iPhone|iPad|iPod/.test(ua) ? "iOS / iPadOS" : "Inny system";
+
+  document.getElementById("network-app-mode").textContent =
+    isStandalone() ? "Zainstalowana aplikacja" : "Przeglądarka";
+}
+
+function updateSettings() {
+  document.getElementById("saved-mode").textContent =
+    modeNames[localStorage.getItem("towermux_mode")] || "Brak";
+}
+
+document.getElementById("refresh-network").addEventListener("click", updateNetwork);
+
+document.getElementById("run-tests").addEventListener("click", () => {
+  const results = document.getElementById("test-results");
+  const status = document.getElementById("test-status");
+  const dot = document.getElementById("test-dot");
+
+  const storageWorks = (() => {
+    try {
+      localStorage.setItem("towermux_test", "ok");
+      const result = localStorage.getItem("towermux_test") === "ok";
+      localStorage.removeItem("towermux_test");
+      return result;
+    } catch (error) {
+      return false;
+    }
+  })();
+
+  const tests = [
+    ["Obsługa JavaScript", true],
+    ["Pamięć lokalna", storageWorks],
+    ["Obsługa trybu offline", "serviceWorker" in navigator],
+    ["Dostęp do sieci", navigator.onLine]
+  ];
+
+  results.innerHTML = "";
+
+  tests.forEach(([name, passed]) => {
+    const item = document.createElement("div");
+    item.className = "result";
+    item.textContent = name + ": " + (passed ? "Dostępna" : "Niedostępna");
+    results.appendChild(item);
+  });
+
+  const passedCount = tests.filter(test => test[1]).length;
+  status.textContent = passedCount + " / " + tests.length + " testów dostępnych";
+  dot.className = passedCount === tests.length ? "dot green" : "dot";
+});
+
+document.getElementById("clear-choice").addEventListener("click", () => {
+  localStorage.removeItem("towermux_mode");
+  selectedMode = "";
+
+  document.querySelectorAll(".choice").forEach(card => {
+    card.classList.remove("selected");
+  });
+
+  updateSettings();
+  updateDashboard();
+  alert("Zapisany wybór został wyczyszczony.");
+});
+
+if (selectedMode) {
+  document.querySelectorAll(".choice").forEach(card => {
+    card.classList.toggle("selected", card.dataset.mode === selectedMode);
+  });
+
+  document.getElementById("message").textContent =
+    "Ostatnio wybrano: " + modeNames[selectedMode] + ".";
+}
+
+updateDashboard();
+updateNetwork();
+
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./service-worker.js")
-      .then(() => console.log("Towermux offline ready"))
-      .catch(error => console.error("Service Worker:", error));
+    navigator.serviceWorker.register("./service-worker.js").catch(() => {});
   });
 }
 </script>
 </body>
-
 </html>
+
