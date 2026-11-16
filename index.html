@@ -1,0 +1,315 @@
+
+
+<!DOCTYPE html>
+
+<html lang="pl">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <meta name="theme-color" content="#080d14">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="apple-mobile-web-app-title" content="Towermux">
+
+  <title>Towermux 1.0</title>
+
+  <style>
+
+    * { box-sizing: border-box; }
+
+    body {
+
+      margin: 0;
+
+      min-height: 100vh;
+
+      padding: 30px 20px;
+
+      background: #080d14;
+
+      color: #e8f3ff;
+
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+
+    }
+
+    .app { max-width: 520px; margin: auto; }
+
+    .top {
+
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      margin-bottom: 45px;
+
+    }
+
+    .logo {
+
+      color: #37c9ff;
+
+      font-size: 25px;
+
+      font-weight: 800;
+
+      letter-spacing: 2px;
+
+    }
+
+    .version { color: #718397; font-size: 11px; }
+
+    .status {
+
+      color: #7c91a7;
+
+      font-size: 11px;
+
+      letter-spacing: 3px;
+
+      margin-bottom: 12px;
+
+    }
+
+    h1 { font-size: 29px; margin: 0 0 10px; }
+
+    .subtitle { color: #8295a9; font-size: 14px; line-height: 1.6; }
+
+    .section {
+
+      margin-top: 38px;
+
+      margin-bottom: 14px;
+
+      color: #37c9ff;
+
+      font-size: 12px;
+
+      letter-spacing: 2px;
+
+    }
+
+    .option {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 15px;
+
+      width: 100%;
+
+      padding: 19px;
+
+      margin: 10px 0;
+
+      color: #e8f3ff;
+
+      background: #111b28;
+
+      border: 1px solid #26384b;
+
+      border-radius: 13px;
+
+      text-align: left;
+
+      font-size: 15px;
+
+    }
+
+    .option.selected {
+
+      border-color: #37c9ff;
+
+      background: #10283a;
+
+    }
+
+    .symbol { font-size: 23px; width: 32px; text-align: center; }
+
+    .description { display: block; color: #8295a9; font-size: 11px; margin-top: 5px; }
+
+    .connect {
+
+      width: 100%;
+
+      padding: 18px;
+
+      margin-top: 25px;
+
+      border: 0;
+
+      border-radius: 12px;
+
+      background: #20b9ed;
+
+      color: #04111b;
+
+      font-size: 14px;
+
+      font-weight: 800;
+
+      letter-spacing: 1px;
+
+    }
+
+    .message {
+
+      min-height: 35px;
+
+      margin-top: 17px;
+
+      color: #8295a9;
+
+      font-size: 12px;
+
+      text-align: center;
+
+    }
+
+    .footer {
+
+      margin-top: 65px;
+
+      color: #526477;
+
+      font-size: 10px;
+
+      text-align: center;
+
+      letter-spacing: 1px;
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <main class="app">
+
+    <header class="top">
+
+      <div class="logo">TOWERMUX</div>
+
+      <div class="version">VERSION 1.0</div>
+
+    </header>
+
+    <div class="status">MERCEDES DIAGNOSTICS</div>
+
+    <h1>Connection setup</h1>
+
+    <div class="subtitle">
+
+      Wybierz sposób połączenia z systemem MBUX.
+
+    </div>
+
+    <div class="section">CONNECTION TYPE</div>
+
+    <button class="option selected" data-mode="hotspot">
+
+      <span class="symbol">◉</span>
+
+      <span>
+
+        iPhone Hotspot
+
+        <span class="description">Telefon udostępnia połączenie Wi-Fi</span>
+
+      </span>
+
+    </button>
+
+    <button class="option" data-mode="mbux">
+
+      <span class="symbol">⌁</span>
+
+      <span>
+
+        MBUX Wi-Fi
+
+        <span class="description">Telefon połączony z siecią samochodu</span>
+
+      </span>
+
+    </button>
+
+    <button class="option" data-mode="usb">
+
+      <span class="symbol">⌁</span>
+
+      <span>
+
+        USB Cable
+
+        <span class="description">Połączenie przewodowe</span>
+
+      </span>
+
+    </button>
+
+    <button class="connect" id="connect">CONTINUE</button>
+
+    <div class="message" id="message">
+
+      Wybierz metodę połączenia.
+
+    </div>
+
+    <footer class="footer">
+
+      TOWERMUX · W214 · 2024
+
+    </footer>
+
+  </main>
+
+  <script>
+
+    const options = document.querySelectorAll(".option");
+
+    let selectedMode = "hotspot";
+
+    options.forEach(option => {
+
+      option.addEventListener("click", () => {
+
+        options.forEach(item => item.classList.remove("selected"));
+
+        option.classList.add("selected");
+
+        selectedMode = option.dataset.mode;
+
+        document.getElementById("message").textContent =
+
+          "Wybrano: " + option.innerText.trim().split("\n")[0];
+
+      });
+
+    });
+
+    document.getElementById("connect").addEventListener("click", () => {
+
+      document.getElementById("message").textContent =
+
+        "Wybrany tryb: " + selectedMode + ". Moduł połączenia zostanie skonfigurowany w kolejnym etapie.";
+
+    });
+
+  </script>
+
+</body>
+
+</html>
